@@ -11,6 +11,10 @@ import java.util.ArrayList;
  *
  * @author Shanty
  */
+/**
+ * array list in this class to populate it with mobilephones
+ * @author Shanty
+ */
 public class inventory {
     private ArrayList<mobilephone>  mobilephonearray;
 
@@ -21,7 +25,10 @@ public class inventory {
     public ArrayList<mobilephone> getMobilephonearray() {
         return mobilephonearray;
     }
-
+/**
+ * add phone to the list
+ * @param mobilephone 
+ */
     public void add(mobilephone mobilephone) {
         this.mobilephonearray.add(mobilephone);
     }

@@ -34,7 +34,9 @@ import javafx.stage.Stage;
  * @author Shanty
  */
 public class InventoryViewController implements Initializable {
-
+/**
+ * declare all the variables 
+ */
     public ObservableList<device> deviceList = FXCollections.observableArrayList();
     @FXML
     private TableView<device> deviceTable;
@@ -56,7 +58,11 @@ public class InventoryViewController implements Initializable {
     private TableColumn<device, Double> screenSizeColumn;
     @FXML
     private TableColumn<device, Double> priceColumn;
-
+/**
+ * this will set the value of 
+ * @param url
+ * @param rb 
+ */
     public void initialize(URL url, ResourceBundle rb) {
         makeColumn.setCellValueFactory(new PropertyValueFactory<device, String>("make"));
         modelColumn.setCellValueFactory(new PropertyValueFactory<device, String>("model"));
@@ -64,7 +70,9 @@ public class InventoryViewController implements Initializable {
         manufacturingYearColumn.setCellValueFactory(new PropertyValueFactory<device, Integer>("manufacturingYear"));
         screenSizeColumn.setCellValueFactory(new PropertyValueFactory<device, Double>("screenSize"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<device, Double>("price"));
-
+/**
+ * this will add the mobilephone to the deviceList 
+ */
         deviceList.add(new mobilephone("Apple", "x", 2016, 5.00, "IOS", 1500));
         deviceList.add(new mobilephone("Samsung", "S8", 2015, 5.00, "Android", 1000));
         
@@ -72,7 +80,7 @@ public class InventoryViewController implements Initializable {
 //load dummy data
         deviceTable.setItems(deviceList);
         
-                                                                                             
+  //  this will set the total price of the phone and total size of inventory                                        
   for(int i=0;i<deviceList.size();i++){
      
        r +=deviceList.get(i).getPrice();
@@ -105,7 +113,7 @@ public class InventoryViewController implements Initializable {
         stage.setTitle("Create new Device");
         stage.setScene(newBookScene);
         stage.show();
-    }
+    }//method to load phones to ObservableList
     public ObservableList LoadPhones(){
         return deviceList;
     }

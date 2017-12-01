@@ -24,7 +24,9 @@ import javafx.stage.Stage;
 public class Launchdevice extends Application {
     
     @Override
- 
+ /**
+  * main class that will bring up the scene of  inventoryView.fxml
+  */
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("inventoryView.fxml"));
         Scene scene = new Scene(root);
