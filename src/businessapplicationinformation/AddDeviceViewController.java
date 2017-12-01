@@ -1,0 +1,127 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package businessapplicationinformation;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javax.imageio.ImageIO;
+
+/**
+ * FXML Controller class
+ *
+ * @author Shanty
+ */
+public class AddDeviceViewController implements Initializable {
+    
+@FXML private TextField maketextfield;
+@FXML private TextField modeltextfield;
+@FXML private TextField operatindsystemtextfield;
+@FXML private TextField screensizetextfield;
+@FXML private TextField yeartextfield;
+@FXML private TextField pricefield;
+@FXML private Button addButton;
+ @FXML private Label errorMessageLabel;
+ @FXML private ImageView imageView;
+ private File imageFile;
+private FileChooser choosefile;
+    /**
+     * Initializes the controller class.
+     */
+public void addButtonPushed(ActionEvent event) throws Exception
+    { 
+      try{
+        mobilephone newdevice= new mobilephone(maketextfield.getText(),modeltextfield.getText(),
+        Integer.parseInt(yeartextfield.getText()),Double.parseDouble(screensizetextfield.getText()),operatindsystemtextfield.getText()
+        ,Double.parseDouble(pricefield.getText()));
+    
+    
+         //load a new scene
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("InventoryView.fxml"));
+        Parent parent = loader.load();
+        Scene newBookScene = new Scene(parent);
+        
+        //access the controller of the newBookScene and send over
+        //the current list of Books
+        InventoryViewController controller = loader.getController();
+       
+  
+        //Get the current "stage" (aka window)         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage stage = ((Stage)((Button) event.getSource()).getScene().getWindow());
+        //change the scene to the new scene
+        stage.setTitle("Devices");
+        stage.setScene(newBookScene);
+        stage.show();
+        controller.LoadPhones() .add(newdevice);
+    
+    }
+    catch (IllegalArgumentException e)
+            {
+                this.errorMessageLabel.setVisible(true);
+                this.errorMessageLabel.setText(e.getMessage());
+              
+            }
+    }
+    public void chooseimageButtonPushed(ActionEvent event) 
+    {
+       Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+       choosefile = new FileChooser();
+        choosefile.setTitle("Choose Image");
+        //This line gets the Stage information
+      this.imageFile=choosefile.showOpenDialog(stage);
+       try{
+            
+            BufferedImage bufferedImage = ImageIO.read(imageFile);
+            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            imageView.setImage(image);
+            
+        }
+        catch (IOException e)
+        {
+            System.err.println(e.getMessage());
+        }
+    }    
+    
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+            this.errorMessageLabel.setVisible(false);
+            
+               try{
+            imageFile = new File("./src/b.jpg");
+            BufferedImage bufferedImage = ImageIO.read(imageFile);
+            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            imageView.setImage(image);
+            
+        }
+        catch (IOException e)
+        {
+            System.err.println(e.getMessage());
+        }
+    }    
+}
+          
+    
