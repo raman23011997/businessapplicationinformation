@@ -92,7 +92,7 @@ public void addButtonPushed(ActionEvent event) throws Exception
         //This line gets the Stage information
       this.imageFile=choosefile.showOpenDialog(stage);
        try{
-            
+         // make the temperory buffered image   
             BufferedImage bufferedImage = ImageIO.read(imageFile);
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);
             imageView.setImage(image);
@@ -114,9 +114,10 @@ public void addButtonPushed(ActionEvent event) throws Exception
             imageFile = new File("./src/b.jpg");
             BufferedImage bufferedImage = ImageIO.read(imageFile);
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            // set the final image
             imageView.setImage(image);
             
-        }
+        }// catch exception
         catch (IOException e)
         {
             System.err.println(e.getMessage());
