@@ -6,6 +6,11 @@
 package businessapplicationinformation;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 /**
@@ -16,11 +21,12 @@ import java.time.LocalDate;
  * 
  * @class abstract device that have all variable that are defined
  */
-public abstract class device {
+public  class Device {
     private String model,make,operatingSystem;
     private int manufacturingYear;
     protected double screenSize,price;
     private File imageFile;
+    private int id;
 /**
  * a constructor that is used to pass all the parameters and then setting their values
  * @param model
@@ -30,7 +36,7 @@ public abstract class device {
  * @param operatingSystem
  * @param price 
  */
-    public device(String model, String make, int manufacturingYear, double screenSize,
+    public Device(String model, String make, int manufacturingYear, double screenSize,
             String operatingSystem,double price) {
         setModel(model);
         setOperatingSystem(operatingSystem);
@@ -59,7 +65,7 @@ public abstract class device {
      * @param model 
      */
     public void setModel(String model) {
-        if(model==" "){
+        if(model.isEmpty()){
            throw new IllegalArgumentException("Model Should not be Empty");
         }else{
             this.model=model;
@@ -87,7 +93,7 @@ public abstract class device {
      * @param make 
      */
     public void setMake(String make) {
-        if(make==" "){
+        if(make.isEmpty()){
             throw new IllegalArgumentException("make Should not be Empty");
         }else{
             this.make=make;
@@ -144,9 +150,104 @@ public abstract class device {
     public int getManufacturingYear() {
         return manufacturingYear;
     }
+public int getId() {
+        return id;
+    }
 
     public double getScreenSize() {
         return screenSize;
     }
+    
+      public void insertIntoDB() throws SQLException
+    {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        
+        try
+        {
+            //1. Connect to the database
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/device?useSSL=false", "root", "ramanlove@1997");
+            
+            //2. Create a String that holds the query with ? as user inputs
+            String sql = "INSERT INTO deviceinfo(make, model, os, year,screensize,price )"
+                    + "VALUES (?,?,?,?,?,?)";
+                    
+            //3. prepare the query
+            preparedStatement = conn.prepareStatement(sql);
+            
+            //4. Convert the birthday into a SQL date
+            
+                   
+            //5. Bind the values to the parameters
+            preparedStatement.setString(1, make);
+            preparedStatement.setString(2, model);
+            preparedStatement.setString(3, operatingSystem);
+            preparedStatement.setInt(4, manufacturingYear);
+            preparedStatement.setDouble(5, screenSize);
+            preparedStatement.setDouble(6, price);
+          
+            preparedStatement.executeUpdate();
+        }
+        catch (Exception e)
+        {
+            System.err.println(e.getMessage());
+        }
+        finally
+        {
+            if (preparedStatement != null)
+                preparedStatement.close();
+            
+            if (conn != null)
+                conn.close();
+        }
+    }
+     public void updateVolunteerInDB() throws SQLException
+    {
+        
+        Connection conn = null;
+                 
+        PreparedStatement preparedStatement = null;
+        
+        try{
+            //1.  connect to the DB
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/device?useSSL=false", "root", "ramanlove@1997");
+  
+            //2.  create a String that holds our SQL update command with ? for user inputs
+            String sql = "UPDATE  deviceinfo SET make = ?, model = ?, os=?, year = ?, screensize = ?,price = ?"
+                    + "WHERE deviceid = ?";
+            
+            //3. prepare the query against SQL injection
+            preparedStatement = conn.prepareStatement(sql);
+            
+            //4.  convert the birthday into a date object
+           
+            
+            //5. bind the parameters
+            preparedStatement.setString(1, make);
+            preparedStatement.setString(2, model);
+            preparedStatement.setString(3, operatingSystem);
+            preparedStatement.setInt(4, manufacturingYear);
+            preparedStatement.setDouble(5, screenSize);
+            preparedStatement.setDouble(6, price);
+            preparedStatement.setInt(7, id);
+            
+            //6. run the command on the SQL server
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        }
+        catch (SQLException e)
+        {
+            System.err.println(e.getMessage());
+        }
+        finally
+        {
+            if (conn != null)
+                conn.close();
+            if (preparedStatement != null)
+                preparedStatement.close();
+        }
+        
+    }
+    
     
 }

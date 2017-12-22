@@ -9,12 +9,12 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="businessapplicationinformation.InventoryViewController">
    <children>
-      <TableView fx:id="deviceTable" layoutX="8.0" layoutY="80.0" prefHeight="216.0" prefWidth="584.0">
+      <TableView fx:id="deviceTable" layoutX="8.0" layoutY="80.0" onMouseClicked="#DeviceSelected" prefHeight="216.0" prefWidth="584.0">
         <columns>
-          <TableColumn fx:id="modelColumn" prefWidth="94.0" text="Model" />
-          <TableColumn fx:id="makeColumn" prefWidth="75.0" text="Make" />
-            <TableColumn fx:id="manufacturingYearColumn" prefWidth="88.0" text=" Year" />
-            <TableColumn fx:id="operatinggsystemColumn" prefWidth="118.0" text="OS" />
+          <TableColumn fx:id="makeColumn" prefWidth="89.0" text="Make" />
+          <TableColumn fx:id="modelColumn" prefWidth="114.0" text="Model" />
+            <TableColumn fx:id="manufacturingYearColumn" prefWidth="74.0" text=" Year" />
+            <TableColumn fx:id="operatinggsystemColumn" prefWidth="98.0" text="OS" />
             <TableColumn fx:id="screenSizeColumn" minWidth="0.0" prefWidth="99.0" text="Screen Size" />
             <TableColumn fx:id="priceColumn" prefWidth="93.0" text="Price" />
         </columns>
@@ -29,5 +29,6 @@
       </Label>
       <Label layoutX="341.0" layoutY="309.0" text="Total Inventory:" />
       <Label fx:id="totalInventoryLabel" layoutX="430.0" layoutY="309.0" text="Label" />
+      <Button fx:id="editButton" layoutX="175.0" layoutY="351.0" mnemonicParsing="false" onAction="#editbuttonpushed" text="Edit Device" />
    </children>
 </AnchorPane>

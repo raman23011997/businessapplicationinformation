@@ -33,7 +33,7 @@ import javax.imageio.ImageIO;
  *
  * @author Shanty
  */
-public class AddDeviceViewController implements Initializable {
+public class AddDeviceViewController implements Initializable,ControllerClass {
     
 @FXML private TextField maketextfield;
 @FXML private TextField modeltextfield;
@@ -46,17 +46,25 @@ public class AddDeviceViewController implements Initializable {
  @FXML private ImageView imageView;
  private File imageFile;
 private FileChooser choosefile;
+private Device device;
     /**
      * Initializes the controller class.
      */
 public void addButtonPushed(ActionEvent event) throws Exception
-    { 
-      try{
-        mobilephone newdevice= new mobilephone(maketextfield.getText(),modeltextfield.getText(),
+{
+      try{ 
+          if(device!=null){
+              
+              device.updateVolunteerInDB();
+          }
+              
+          else {
+        device= new Device(maketextfield.getText(),modeltextfield.getText(),
         Integer.parseInt(yeartextfield.getText()),Double.parseDouble(screensizetextfield.getText()),operatindsystemtextfield.getText()
         ,Double.parseDouble(pricefield.getText()));
     
-    
+    device.insertIntoDB();
+          }
          //load a new scene
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("InventoryView.fxml"));
@@ -74,8 +82,9 @@ public void addButtonPushed(ActionEvent event) throws Exception
         stage.setTitle("Devices");
         stage.setScene(newBookScene);
         stage.show();
-        controller.LoadPhones() .add(newdevice);
-    
+       
+              
+                  
     }
     catch (IllegalArgumentException e)
             {
@@ -123,6 +132,30 @@ public void addButtonPushed(ActionEvent event) throws Exception
             System.err.println(e.getMessage());
         }
     }    
+
+    @Override
+    public void preloadData(Device device) {
+    this.device=device;
+    this.maketextfield.setText(device.getMake());
+    this.modeltextfield.setText(device.getModel());
+    this.operatindsystemtextfield.setText(device.getOperatingSystem());
+    double a= device.getScreenSize();
+    String b= Double.toString(a);
+    this.screensizetextfield.setText(b);
+     int intnew= device.getManufacturingYear();
+    String c= Integer.toString(intnew);
+   this.yeartextfield.setText(c);
+   double newdouble= device.getPrice();
+    String d= Double.toString(newdouble);
+    this.pricefield.setText(d);
+    
+    
+    }
+
+    @Override
+    public void preloadData2(Employee employee) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
           
     

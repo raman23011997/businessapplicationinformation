@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.102" fx:controller="businessapplicationinformation.NewEmployeeViewController">
+   <children>
+      <Label layoutX="177.0" layoutY="24.0" text="Create New Employee">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="176.0" layoutY="81.0" text="First Name">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="177.0" layoutY="121.0" text="Last Name">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="165.0" layoutY="163.0" text="Phone Number">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="firstNameTextField" layoutX="290.0" layoutY="77.0" />
+      <TextField fx:id="lastNameTextField" layoutX="290.0" layoutY="117.0" />
+      <TextField fx:id="phoneTextField" layoutX="290.0" layoutY="159.0" />
+      <Button layoutX="280.0" layoutY="356.0" mnemonicParsing="false" onAction="#saveEmployeeButtonPushed" text="Save" />
+      <Button layoutX="365.0" layoutY="356.0" mnemonicParsing="false" text="Cancel" />
+      <Label fx:id="errMsgLabel" layoutX="220.0" layoutY="328.0" text="Label" textFill="#dd2424" />
+      <Label layoutX="180.0" layoutY="205.0" text="Password">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="157.0" layoutY="249.0" text="Confirm Password">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="pwTextField" layoutX="290.0" layoutY="201.0" />
+      <TextField fx:id="confirmpwField" layoutX="290.0" layoutY="245.0" />
+      <Label layoutX="155.0" layoutY="295.0" text="Adminstrative Role">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <CheckBox fx:id="admin" layoutX="300.0" layoutY="295.0" mnemonicParsing="false" />
+   </children>
+</AnchorPane>

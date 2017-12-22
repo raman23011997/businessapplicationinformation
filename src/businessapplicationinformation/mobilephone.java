@@ -9,7 +9,7 @@ package businessapplicationinformation;
  *
  * @author Shanty
  */
-public class mobilephone extends device {
+public class mobilephone extends Device {
     /**
      * mobile phone passes following parameters and then set their values
      * @param model
@@ -23,6 +23,7 @@ public class mobilephone extends device {
         super(model, make, manufacturingYear, screenSize, operatingSystem,price);
         
     }
+    
  /**
   * override method which will throw exception if size is less than 0 or greater than 6
   * @param screenSize 

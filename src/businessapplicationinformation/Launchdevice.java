@@ -28,9 +28,9 @@ public class Launchdevice extends Application {
   * main class that will bring up the scene of  inventoryView.fxml
   */
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("inventoryView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
         Scene scene = new Scene(root);
-        primaryStage.setTitle("Device");
+        primaryStage.setTitle("Employee");
         primaryStage.setScene(scene);
         primaryStage.show();
         
@@ -43,4 +43,4 @@ public class Launchdevice extends Application {
         launch(args);
     }
     
-}
+} 

@@ -8,6 +8,11 @@ package businessapplicationinformation;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ResourceBundle;
@@ -37,65 +42,127 @@ public class InventoryViewController implements Initializable {
 /**
  * declare all the variables 
  */
-    public ObservableList<device> deviceList = FXCollections.observableArrayList();
+    @FXML Button editButton;
+    public ObservableList<Device> deviceList = FXCollections.observableArrayList();
     @FXML
-    private TableView<device> deviceTable;
+    private TableView<Device> deviceTable;
  private double r;
     @FXML
-    private TableColumn<device, String> makeColumn;
+    private TableColumn<Device, String> makeColumn;
     @FXML
-    private TableColumn<device, String> modelColumn;
+    private TableColumn<Device, String> modelColumn;
     @FXML
-    private TableColumn<device, String> operatinggsystemColumn;
+    private TableColumn<Device, String> operatinggsystemColumn;
 
     @FXML
     private Label totalPriceLabel;
         @FXML
     private Label totalInventoryLabel;
     @FXML
-    private TableColumn<device, Integer> manufacturingYearColumn;
+    private TableColumn<Device, Integer> manufacturingYearColumn;
     @FXML
-    private TableColumn<device, Double> screenSizeColumn;
+    private TableColumn<Device, Double> screenSizeColumn;
     @FXML
-    private TableColumn<device, Double> priceColumn;
+    private TableColumn<Device, Double> priceColumn;
 /**
  * this will set the value of 
  * @param url
  * @param rb 
  */
+    public void editbuttonpushed(ActionEvent event) throws IOException{
+        SceneChanger na = new SceneChanger();
+        Device device=this.deviceTable.getSelectionModel().getSelectedItem();
+        AddDeviceViewController as= new AddDeviceViewController();
+        na.changeScenes(event,"addDeviceView.fxml", "Edit Volunteer", device, as);
+    }
+    public void DeviceSelected(){
+        editButton.setDisable(false);
+    }
     public void initialize(URL url, ResourceBundle rb) {
-        makeColumn.setCellValueFactory(new PropertyValueFactory<device, String>("make"));
-        modelColumn.setCellValueFactory(new PropertyValueFactory<device, String>("model"));
-        operatinggsystemColumn.setCellValueFactory(new PropertyValueFactory<device, String>("operatingSystem"));
-        manufacturingYearColumn.setCellValueFactory(new PropertyValueFactory<device, Integer>("manufacturingYear"));
-        screenSizeColumn.setCellValueFactory(new PropertyValueFactory<device, Double>("screenSize"));
-        priceColumn.setCellValueFactory(new PropertyValueFactory<device, Double>("price"));
+       editButton.setDisable(true);
+        makeColumn.setCellValueFactory(new PropertyValueFactory<Device, String>("make"));
+        modelColumn.setCellValueFactory(new PropertyValueFactory<Device, String>("model"));
+        operatinggsystemColumn.setCellValueFactory(new PropertyValueFactory<Device, String>("operatingSystem"));
+        manufacturingYearColumn.setCellValueFactory(new PropertyValueFactory<Device, Integer>("manufacturingYear"));
+        screenSizeColumn.setCellValueFactory(new PropertyValueFactory<Device, Double>("screenSize"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<Device, Double>("price"));
 /**
  * this will add the mobilephone to the deviceList 
  */
-        deviceList.add(new mobilephone("Apple", "x", 2016, 5.00, "IOS", 1500));
-        deviceList.add(new mobilephone("Samsung", "S8", 2015, 5.00, "Android", 1000));
+try{
+            loadDevices();
+        }
+        catch (SQLException e)
+        {
+            System.err.println(e.getMessage());
+        }
+    }
         
-
-//load dummy data
-        deviceTable.setItems(deviceList);
+ public void loadDevices() throws SQLException
+    {
+        ObservableList<Device> Device = FXCollections.observableArrayList();
         
-  //  this will set the total price of the phone and total size of inventory                                        
-  for(int i=0;i<deviceList.size();i++){
-     
-       r +=deviceList.get(i).getPrice();
-      this.totalPriceLabel.setText("$ "+r);
-      this.totalInventoryLabel.setText(""+deviceList.size());
-  }
-                    
+        Connection conn = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        
+        try{
+            //1. connect to the database
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/device?useSSL=false", "root", "ramanlove@1997");
+            //2.  create a statement object
+            statement = conn.createStatement();
+            
+            //3.  create the SQL query
+            resultSet = statement.executeQuery("SELECT * FROM deviceinfo");
+            
+            //4.  create volunteer objects from each record
+            while (resultSet.next())
+            {
+                Device newdevice = new Device(resultSet.getString("make"),
+                                                       resultSet.getString("model"),
+                                                       resultSet.getInt("year"),
+                                                       resultSet.getDouble("screensize"),
+                                                       resultSet.getString("os"),
+                                                       resultSet.getDouble("price"));
+        
+             
+                
+                   Device.add(newdevice);
+            }
+            
+            deviceTable.getItems().addAll(Device);
+     resultSet = statement.executeQuery("SELECT sum(price) FROM deviceinfo");
+     resultSet.next();
+     String sum = resultSet.getString(1);
+     BigDecimal a = new BigDecimal(sum);
+BigDecimal roundOff = a.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+    totalPriceLabel.setText(roundOff.toString());
+    resultSet = statement.executeQuery("SELECT count(price) FROM deviceinfo");
+     resultSet.next();
+     String count = resultSet.getString(1);
+    totalInventoryLabel.setText(count);
+    
+        } catch (Exception e)
+        {
+            System.err.println(e);
+        }
+        finally
+        {
+            if (conn != null)
+                conn.close();
+            if(statement != null)
+                statement.close();
+            if(resultSet != null)
+                resultSet.close();
+        }
     }
 
-       
+//
+                    
     
-
     public void createNewBookButtonPushed(ActionEvent event) throws IOException
     {
- 
+         
          //load a new scene
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("addDeviceView.fxml"));
