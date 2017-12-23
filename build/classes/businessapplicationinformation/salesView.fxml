@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.102" fx:controller="businessapplicationinformation.SalesViewController">
+   <children>
+      <Label layoutX="209.0" layoutY="36.0" text="Record Sales">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="158.0" layoutY="109.0" text="EmployeeID" />
+      <Label layoutX="158.0" layoutY="154.0" text="Selling Price" />
+      <TextField fx:id="EmployeeID" layoutX="245.0" layoutY="105.0" prefHeight="25.0" prefWidth="174.0" />
+      <TextField fx:id="priceTextField" layoutX="245.0" layoutY="150.0" prefHeight="25.0" prefWidth="174.0" />
+      <Button fx:id="saveButton" layoutX="274.0" layoutY="277.0" mnemonicParsing="false" onAction="#recordButtonPushed" text="Record" />
+      <Label layoutX="118.0" layoutY="200.0" text="Date Of Transaction" />
+      <DatePicker fx:id="datePicker" layoutX="245.0" layoutY="196.0" />
+      <Label fx:id="errMsgLabel" layoutX="245.0" layoutY="243.0" />
+   </children>
+</AnchorPane>

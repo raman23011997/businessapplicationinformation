@@ -7,6 +7,7 @@ package businessapplicationinformation;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -167,7 +168,8 @@ public void insertIntoDB() throws SQLException
             if (preparedStatement != null)
                 preparedStatement.close();
         }
+    }
+      
         
     } 
 
-}

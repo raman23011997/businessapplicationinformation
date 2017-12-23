@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.102" fx:controller="businessapplicationinformation.FinalViewSaleController">
+   <children>
+      <TableView layoutY="69.0" prefHeight="263.0" prefWidth="588.0">
+        <columns>
+          <TableColumn fx:id="IDColumn" prefWidth="75.0" text="EmployeeID" />
+          <TableColumn fx:id="salesTable" prefWidth="109.0" text="Selling  Price" />
+            <TableColumn fx:id="priceColumn" prefWidth="109.0" text="Cost" />
+            <TableColumn fx:id="dateColumn" prefWidth="141.0" text="Date Of Transcation" />
+        </columns>
+      </TableView>
+      <Label layoutX="199.0" layoutY="14.0" text="All Sales">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Button layoutX="14.0" layoutY="353.0" mnemonicParsing="false" text="Back" />
+   </children>
+</AnchorPane>

@@ -31,7 +31,7 @@ public class UserViewController implements Initializable {
     }    
      public void devicebuttonpushed(ActionEvent event) throws IOException{
        SceneChanger s = new SceneChanger();
-      s.changeScenes(event, "InventoryView.fxml", " All employees");
+      s.changeScenes(event, "SalesView.fxml", " Report Sales");
 }
    public void backbuttonpushed(ActionEvent event) throws IOException{
        SceneChanger s = new SceneChanger();

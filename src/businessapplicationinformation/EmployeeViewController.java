@@ -40,13 +40,13 @@ public class EmployeeViewController implements Initializable {
     @FXML private TableColumn<Employee, String> phoneColumn;
    @FXML Button editButton;
     private Employee employee;
-   public void DeviceSelected(){
-        editButton.setDisable(false);
+    public void ifemployeeselected(){
+        editButton.setVisible(true);
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-         editButton.setDisable(true);
+      
        IDColumn.setCellValueFactory(new PropertyValueFactory<Employee, Integer>("ID"));
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("firstName"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("lastName"));
